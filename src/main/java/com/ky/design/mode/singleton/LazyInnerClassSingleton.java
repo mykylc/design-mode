@@ -29,11 +29,15 @@ public class LazyInnerClassSingleton {
     private static class SingletonHandler{
         /**
          *  静态初始化器，由JVM来保证线程安全
+         *  final 为了防止内部误操作，防止代理模式：cglib
          **/
-        private static LazyInnerClassSingleton instance = new LazyInnerClassSingleton();
+        private static final LazyInnerClassSingleton instance = new LazyInnerClassSingleton();
     }
 
-    public static LazyInnerClassSingleton getInstance(){
+    /**
+     * final 确保别人不能被覆盖
+     **/
+    public static final LazyInnerClassSingleton getInstance(){
         return SingletonHandler.instance;
     }
 
